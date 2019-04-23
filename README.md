@@ -27,7 +27,7 @@ Bo Song (songbo446@yeah.net), Shenzhen University
     
 1.	INTRODUCTION
 
-   RiboNT is coded in Python3 and is developed for Linux users. Make sure Python3 has been installed.
+    RiboNT is coded in Python3 and is developed for Linux users. Make sure Python3 has been installed.
 
 2.	INSTALLATION
 
