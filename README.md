@@ -29,6 +29,7 @@ Shenzhen University
     0.3 Other tools:
 
         bedtools
+        samtools
     
 1.	INTRODUCTION
 
@@ -47,7 +48,7 @@ Shenzhen University
 
     RiboNT requires the inputs of the sequence of reference genome (in fasta format), the genome annotation file (in gtf format) and the alignment of RPFs (in sorted bam)
 
-    There are five options
+    There are eight options
 
     --start  RiboNT use AUG as the start codon by default. As many non-canonical start codons have been identified in many studies. 
     The users can select other triples as start codons. Codons should be seperated by comma if more than one is used. For example, 
@@ -64,6 +65,12 @@ Shenzhen University
     --outdir  The output directory of results.
 
     --prefix  The prefix of output files.
+    
+    --Rscript   The path to the excutable file of Rscript. RiboNT uses "Rscript" under /usr/bin/ by default. If "Rscript" is installed in your local directory, or you want to use your own path of Rscript, the path should be provided.
+    
+    --bedtools  The path to the excutable file of bedtools. RiboNT uses "bedtools" under /usr/bin/ by default. If "bedtools" is installed in your local directory, the path should be provided.
+    
+    --samtools  The path to the excutable file of samtools. RiboNT uses "samtools" under /usr/bin/ by default. If "samtools" is stalled in your local directory, the path should be provided.
 
 4.	RESULTS
 
@@ -107,7 +114,7 @@ Shenzhen University
     4.9 Plot A directory including metagene and multitaper plots.
 
     
-    Note:
+    NOTE:
 
     Classification of predicted ORFs:
 
