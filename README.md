@@ -44,11 +44,17 @@ Bo Song (songbo446@yeah.net), Shenzhen University
 
     There are five options
 
-    --start  RiboNT use AUG as the start codon by default. As many non-canonical start codons have been identified in many studies. The users can select other triples as start codons. Codons should be seperated by comma if more than one is used. For example, AUG,UUG,CUG,GUG
+    --start  RiboNT use AUG as the start codon by default. As many non-canonical start codons have been identified in many studies. 
+    The users can select other triples as start codons. Codons should be seperated by comma if more than one is used. For example, 
+    AUG,UUG,CUG,GUG
 
-    --pcov  The minimum coverage of RPF at P-sites for a canidate ORF. This value should be set between 0-1. By default, RiboNT skip if there is no RPF-supported P-site in a candiate ORF.
+    --pcov      The minimum coverage of RPF at P-sites for a canidate ORF. This value should be set between 0-1. By default, RiboNT 
+    skip if there is no RPF-supported P-site in a candiate ORF.
 
-    --nCores  The number of multiprocesssors. The identification of ORFs could be speed up by using more processors simultaneously. Five tasks will be processed parellely by default. Please note that there is a trade-off between the speed and RAM cost. It's hihgly recommanded that users should test the required RAM for a single task by setting nCores at 1 and run the program to the step of "Predicting ORFs", then decide how many processors should be used according to the capability of their machines.
+    --nCores  The number of multiprocesssors. The identification of ORFs could be speed up by using more processors simultaneously. 
+    Five tasks will be processed parellely by default. Please note that there is a trade-off between the speed and RAM cost. It's 
+    hihgly recommanded that users should test the required RAM for a single task by setting nCores at 1 and run the program to the 
+    step of "Predicting ORFs", then decide how many processors should be used according to the capability of their machines.
 
     --outdir  The output directory of results.
 
