@@ -18,14 +18,20 @@ def main ():
         --nCores        Number of multiprocessors [default: 5]
         --outdir        Output directory [default: ./RiboNT]
         --prefix        Prefix of output files [default: ribont]
+        --Rscript       Path to Rscript [default: /usr/bin/]
+        --bedtools      Path to bedtools [default: /usr/bin/]
+        --samtools      Path to samtools [default: /usr/bin/]
 
 """
     startCodon, outdir, prefix = 'AUG', 'RiboNT', 'ribont'
+    pathR = "/usr/bin/"
+    pathBedtools = "/usr/bin/"
+    pathSamtools = "/usr/bin/"
     nCores = 5
     pcov = 0.00000000001
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "h", ["help", "genome=", "gtf=", "bam=", "pcov=", "nCores=", "start=", "outdir=", "prefix="])
+        opts, args = getopt.getopt(sys.argv[1:], "h", ["help", "genome=", "gtf=", "bam=", "pcov=", "nCores=", "start=", "outdir=", "prefix=", "Rscript=", "bedtools=", "samtools="])
     except:
         sys.stdout.write(usage)
         sys.exit()
@@ -63,6 +69,12 @@ def main ():
             pcov = float(arg)
         elif opt in ('--nCores'):
             nCores = int(arg)
+        elif opt in ('--Rscript'):
+            pathR = arg
+        elif opt in ('--bedtools'):
+            pathBedtools = arg
+        elif opt in ('--samtools'):
+            pathSamtools = arg
 
     genome = os.path.abspath(genome)
     gtf = os.path.abspath(gtf)
@@ -78,27 +90,27 @@ def main ():
 
     entropy = 1
     if not os.path.exists(prefix): ribont.StartExtract(gtf, prefix)
-    if not os.path.exists(prefix+'_OffSet.txt'): ribont.OffSetExtract(bam, prefix+'.start.bed', prefix)
+    if not os.path.exists(prefix+'_OffSet.txt'): ribont.OffSetExtract(bam, prefix + '.start.bed', prefix, pathBedtools, pathSamtools)
 
-    sys.stdout.write("\tEvaluating RPFs qualities"+'\n')
-    if os.path.exists(prefix+'.R.txt'): 
+    sys.stdout.write("\tEvaluating RPFs qualities" + '\n')
+    if os.path.exists(prefix + '.R.txt'): 
         if not os.path.exists('Plot'): os.makedirs('Plot')
-        os.system('Rscript '+Bin+'/bin/multitaper.R '+prefix+'.R.txt')
-        os.system('Rscript '+Bin+'/bin/metaplotHP.R '+prefix+'.L.txt '+prefix+'.R.txt')
+        os.system(pathBedtools + '/Rscript '+ Bin + '/bin/multitaper.R ' + prefix + '.R.txt')
+        os.system(pathBedtools + '/Rscript '+ Bin + '/bin/metaplotHP.R ' + prefix + '.L.txt ' + prefix + '.R.txt')
 
     sys.stdout.write("\tExtracting genome-wide codon usages"+'\n')
-    if not os.path.exists(prefix+'_codonUsage.pickle'): ribont.UsageExtract(genome,gtf,nCores,prefix)
-    if not os.path.exists(prefix+'_dep.pickle'): entropy = ribont.PsiteAllocate(prefix+'.bed',prefix+'_OffSet.txt',prefix+'_multitaper.Freq.txt', prefix)
+    if not os.path.exists(prefix + '_codonUsage.pickle'): ribont.UsageExtract(genome,gtf,nCores,prefix)
+    if not os.path.exists(prefix + '_dep.pickle'): entropy = ribont.PsiteAllocate(prefix + '.bed',prefix + '_OffSet.txt',prefix + '_multitaper.Freq.txt', prefix)
     
     sys.stdout.write("\tPredicting ORFs"+'\n')
-    if not os.path.exists(prefix+'_orf.fa'): ribont.OrfFinder(entropy,startCodon,genome,gtf,pcov,nCores,prefix)
+    if not os.path.exists(prefix + '_orf.fa'): ribont.OrfFinder(entropy,startCodon,genome,gtf,pcov,nCores,prefix)
     
     sys.stdout.write("\tORF prediction completed. Outputting ..."+'\n')
     if not os.path.exists(prefix+'_sORF.gff'): 
-        ribont.gffMaker(gtf, prefix+'.start.bed', prefix+'.stop.bed', prefix+'_orf.fa', prefix+'_sORF.gff',prefix+'_orf_aa.fa', prefix+'_orf_table.txt', prefix+'_summary.txt')
+        ribont.gffMaker(gtf, prefix + '.start.bed', prefix + '.stop.bed', prefix + '_orf.fa', prefix + '_sORF.gff',prefix + '_orf_aa.fa', prefix + '_orf_table.txt', prefix + '_summary.txt')
 
     os.system('rm *.bed *.pickle *.R.txt *.L.txt ' + prefix)
-    sys.stdout.write("RiboNT completed"+'\n')
+    sys.stdout.write("RiboNT completed" + '\n')
 
 if __name__ == "__main__":
     main()
