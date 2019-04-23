@@ -1,0 +1,4 @@
+annotated_ORF	91
+internal_ORF	2
+truncated_ORF	4
+ncsORF	5

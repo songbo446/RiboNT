@@ -1,0 +1,8 @@
+RPFs of 25 nt were used to predict ORFs
+RPFs of 26 nt were used to predict ORFs
+RPFs of 28 nt were used to predict ORFs
+RPFs of 29 nt were used to predict ORFs
+Total amount of used RPFs: 702669
+Total amount of discarded RPFs: 297311
+Percentage of used RPFs: 70.2683
+The entropy is: 0.23851580316658008
