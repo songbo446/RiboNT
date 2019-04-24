@@ -70,7 +70,7 @@ Shenzhen University
     
     --bedtools  The path to the excutable file of bedtools. RiboNT uses "bedtools" under /usr/bin/ by default. If "bedtools" is installed in your local directory, the path should be provided.
     
-    --samtools  The path to the excutable file of samtools. RiboNT uses "samtools" under /usr/bin/ by default. If "samtools" is stalled in your local directory, the path should be provided.
+    --samtools  The path to the excutable file of samtools. RiboNT uses "samtools" under /usr/bin/ by default. If "samtools" is installed in your local directory, the path should be provided.
 
 4.	RESULTS
 
