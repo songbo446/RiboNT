@@ -90,13 +90,21 @@ def main ():
 
     entropy = 1
     if not os.path.exists(prefix): ribont.StartExtract(gtf, prefix)
-    if not os.path.exists(prefix+'_OffSet.txt'): ribont.OffSetExtract(bam, prefix + '.start.bed', prefix, pathBedtools, pathSamtools)
+    if not os.path.exists(prefix+'_OffSet.txt'): ribont.OffSetExtract(bam, prefix + '.start.bed', prefix, pathBedtools = pathBedtools, pathSamtools = pathSamtools)
 
     sys.stdout.write("\tEvaluating RPFs qualities" + '\n')
     if os.path.exists(prefix + '.R.txt'): 
         if not os.path.exists('Plot'): os.makedirs('Plot')
-        os.system(pathBedtools + '/Rscript '+ Bin + '/bin/multitaper.R ' + prefix + '.R.txt')
-        os.system(pathBedtools + '/Rscript '+ Bin + '/bin/metaplotHP.R ' + prefix + '.L.txt ' + prefix + '.R.txt')
+        if not pathR:
+            try:
+                os.system('Rscript '+ Bin + '/bin/multitaper.R ' + prefix + '.R.txt')
+                os.system('Rscript '+ Bin + '/bin/metaplotHP.R ' + prefix + '.L.txt ' + prefix + '.R.txt')
+            except:
+                sys.stdout.write("ERROR: Rscript is not a excutable command, please provide the path to Rscript using --Rscript option")
+                sys.exit()
+        else:
+            os.system(pathR + '/Rscript '+ Bin + '/bin/multitaper.R ' + prefix + '.R.txt')
+            os.system(pathR + '/Rscript '+ Bin + '/bin/metaplotHP.R ' + prefix + '.L.txt ' + prefix + '.R.txt')
 
     sys.stdout.write("\tExtracting genome-wide codon usages"+'\n')
     if not os.path.exists(prefix + '_codonUsage.pickle'): ribont.UsageExtract(genome,gtf,nCores,prefix)

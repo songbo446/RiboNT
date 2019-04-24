@@ -92,12 +92,32 @@ def StartExtract (inGff, pre):
 	os.system('sort -k1,1 -k2,2n ' + pre + '.stop.tmp > ' + pre + '.stop.bed')
 	os.system('rm *.tmp')
 	
-def OffSetExtract (bamFile, startCodon, pre, pathBedtools, pathSamtools):
+def OffSetExtract (bamFile, startCodon, pre, pathBedtools='', pathSamtools=''):
 	""" Calculate offset for RPFs in each size and return the entropy of frames for size with most abundance"""
-	os.system(pathBedtools +'/bamToBed -bed12 -i '+bamFile+' > '+pre+'.bed')
-	os.system(pathSamtools +'/samtools view -h -s 1.03 '+bamFile+'|' + pathSamtools + '/samtools view -bS - > '+pre+'.sub.bam')
-	os.system(pathBedtools +'/bamToBed -bed12 -i '+pre+'.sub.bam > '+pre+'.sub.bed')
-	os.system(pathBedtools +'/windowBed -w 100 -sm -b '+pre+'.sub.bed -a '+startCodon+'|cut -f 7-18|sort -k1,1 -k2,2g|' + pathBedtools + '/closestBed -s -a stdin -b '+startCodon+' > '+pre)
+	if not pathBedtools:
+		try:
+			os.system('bamToBed -bed12 -i '+bamFile+' > '+pre+'.bed')
+		except:
+			sys.stdout.write("ERROR: bedtools is not an excutable command, please provide the path to bedtools using the option of --bedtools")
+			sys.exit()
+	else:
+		os.system(pathBedtools +'/bamToBed -bed12 -i '+bamFile+' > '+pre+'.bed')
+
+	if not pathSamtools:
+		try:
+			os.system('samtools view -h -s 1.03 '+bamFile+'|samtools view -bS - > '+pre+'.sub.bam')
+		except:
+			sys.stdout.write("ERROR: samtools is not an excutable command, please provide the path to bedtools using the option of --samtools")
+			sys.exit()
+	else:
+		os.system(pathSamtools +'/samtools view -h -s 1.03 '+bamFile+'|' + pathSamtools + '/samtools view -bS - > '+pre+'.sub.bam')
+	
+	if not pathBedtools:
+		os.system('bamToBed -bed12 -i '+pre+'.sub.bam > '+pre+'.sub.bed')
+		os.system('windowBed -w 100 -sm -b '+pre+'.sub.bed -a '+startCodon+'|cut -f 7-18|sort -k1,1 -k2,2g|closestBed -s -a stdin -b '+startCodon+' > '+pre)
+	else:
+		os.system(pathBedtools +'/bamToBed -bed12 -i '+pre+'.sub.bam > '+pre+'.sub.bed')
+		os.system(pathBedtools +'/windowBed -w 100 -sm -b '+pre+'.sub.bed -a '+startCodon+'|cut -f 7-18|sort -k1,1 -k2,2g|' + pathBedtools + '/closestBed -s -a stdin -b '+startCodon+' > '+pre)
 	os.system('rm *sub.bam *sub.bed')
 	
 	Off, Len = {}, {}
