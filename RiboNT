@@ -24,9 +24,9 @@ def main ():
 
 """
     startCodon, outdir, prefix = 'AUG', 'RiboNT', 'ribont'
-    pathR = "/usr/bin/"
-    pathBedtools = "/usr/bin/"
-    pathSamtools = "/usr/bin/"
+    pathR = ""
+    pathBedtools = ""
+    pathSamtools = ""
     nCores = 5
     pcov = 0.00000000001
 
