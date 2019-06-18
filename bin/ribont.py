@@ -573,6 +573,7 @@ def gffMaker (inGtf, startBed, stopBed, inCds, fileOutGff, outFa, outTable, outS
 	## Load genomic elements for each transcript
 	fileIn = open (inGtf, 'r')
 	for line in fileIn:
+		if 'transcript_id' not in line: continue
 		Line = line.rstrip().split('\t')
 		if re.findall(re.compile('UTR|CDS|exon|RNA|gen|Gen'), Line[2]):
 			transId = re.findall(r'transcript_id \"([^\"]+)\"',line)[0]
