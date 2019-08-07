@@ -66,11 +66,11 @@ Shenzhen University
 
     --prefix  The prefix of output files.
     
-    --Rscript   The path to the excutable file of Rscript. RiboNT uses "Rscript" under /usr/bin/ by default. If "Rscript" is installed in your local directory, or you want to use your own path of Rscript, the path should be provided.
+    --Rscript   The path to the excutable file of Rscript. If "Rscript" is installed in your local directory, or you want to use your own path of Rscript, the path should be provided.
     
-    --bedtools  The path to the excutable file of bedtools. RiboNT uses "bedtools" under /usr/bin/ by default. If "bedtools" is installed in your local directory, the path should be provided.
+    --bedtools  The path to the excutable file of bedtools. If "bedtools" is installed in your local directory, the path should be provided.
     
-    --samtools  The path to the excutable file of samtools. RiboNT uses "samtools" under /usr/bin/ by default. If "samtools" is installed in your local directory, the path should be provided.
+    --samtools  The path to the excutable file of samtools. If "samtools" is installed in your local directory, the path should be provided.
 
 4.	RESULTS
 
