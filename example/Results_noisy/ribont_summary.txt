@@ -1,0 +1,4 @@
+internal_ORF	74
+truncated_ORF	172
+ncsORF	80
+annotated_ORF	4589
