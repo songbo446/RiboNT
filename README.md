@@ -138,3 +138,6 @@ Shenzhen University
 
       (xi) pORF, ORFs on pseudo genes.
 
+
+Citation:
+Song B., Jiang M. and Gao L. RiboNT: a noise-tolerant predictor of open reading frames from ribosome-protected footprints. Life. 2021. 11. 701: doi.org/10.3390/life11070701
